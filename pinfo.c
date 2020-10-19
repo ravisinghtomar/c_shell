@@ -86,7 +86,7 @@ void execute_pinfo_func(char *command[200], int len, char command_string[200])
             temp = 1;
             for (int j = i; j < strlen(buf); j++)
             {
-                path2[temp++] = buf[j++];
+                path2[temp++] = buf[j];
             }
             printf("Executable Path -- %s\n", path2);
         }

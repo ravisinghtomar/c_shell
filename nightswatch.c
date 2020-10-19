@@ -177,7 +177,11 @@ void nightswatch(char *command[200], int len, char command_string[200])
         }
         if (getkey())
         {
-    
+            if (getchar() == 'q')
+            {
+                printf("\n");
+                return;
+            }
         }
     }
 }

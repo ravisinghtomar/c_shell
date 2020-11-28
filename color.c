@@ -1,8 +1,8 @@
-#include <stdio.h>
+#include "header.h"
+#include "input.h"
 
-// not used much :p
 
-void bold_green() 
+void bold_green()
 {
     printf("\033[1;32m");
 }

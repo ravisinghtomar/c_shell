@@ -1,7 +1,7 @@
 #include "header.h"
 #include "input.h"
 
-void execute_cd_func(char *command[200], int len, char command_string[200])
+int execute_cd_func(char *command[200], int len, char command_string[200])
 {
     char prev_dir1[5000] = "\0";
     strcpy(prev_dir1, prev_dir);
@@ -12,6 +12,7 @@ void execute_cd_func(char *command[200], int len, char command_string[200])
         printf("Error : ");
         reset();
         printf("Too many arguments for cd\n");
+        return 0;
     }
     else if (len == 1)
     {
@@ -26,6 +27,7 @@ void execute_cd_func(char *command[200], int len, char command_string[200])
             reset();
             printf("Target directory not found\n");
             strcpy(prev_dir, prev_dir1);
+            return 0;
         }
     }
     else if (!strcmp(command[1], "-"))
@@ -36,11 +38,12 @@ void execute_cd_func(char *command[200], int len, char command_string[200])
             printf("Error : ");
             reset();
             printf("Can't return to previous directory\n");
+            return 0;
         }
         getcwd(prev_dir1, 4096);
         printf("%s\n", prev_dir1);
     }
-    else if (command[1][0]=='~' || !strcmp(command[1], "~/"))
+    else if (command[1][0] == '~' || !strcmp(command[1], "~/"))
     {
         char str[100] = "\0";
         strcpy(str, command[1]);
@@ -65,6 +68,7 @@ void execute_cd_func(char *command[200], int len, char command_string[200])
             reset();
             printf("Target directory not found\n");
             strcpy(prev_dir, prev_dir1);
+            return 0;
         }
     }
     else if (chdir(command[1]) < 0)
@@ -74,6 +78,7 @@ void execute_cd_func(char *command[200], int len, char command_string[200])
         reset();
         printf("Target directory not found\n");
         strcpy(prev_dir, prev_dir1);
+        return 0;
     }
-    return;
+    return 1;
 }

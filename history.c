@@ -23,6 +23,7 @@ void restructure_history(int len, char path[500], char *buffer[200])
     }
     return;
 }
+
 int check_history(char *command)
 {
     struct passwd s1;
@@ -39,10 +40,10 @@ int check_history(char *command)
         printf("Can't open file of .history.temp \n");
         return 0;
     }
-    char buf[70000];
+    char buf[4000];
     char *buffer[500];
     int i = 0;
-    int v = read(fd, buf, 70000);
+    int v = read(fd, buf, 4000);
     if (v < 0)
     {
         bold_red();
@@ -62,6 +63,7 @@ int check_history(char *command)
     free(token);
     return strcmp(command, buffer[i - 1]);
 }
+
 void create_history(char *command)
 {
     struct passwd s1;
@@ -101,10 +103,10 @@ void create_history(char *command)
         write(fd, "`", strlen("`"));
         close(fd);
         fd = open(path, O_RDONLY);
-        char buf[7000] = "\0";
+        char buf[4000] = "\0";
         char *buffer[200];
         int i = 0;
-        int v = read(fd, buf, 7000);
+        int v = read(fd, buf, 4000);
         if (v < 0)
         {
             bold_red();
@@ -127,7 +129,7 @@ void create_history(char *command)
     }
     return;
 }
-void print_history(char *command[200], int len, char command_string[200])
+int print_history(char *command[200], int len, char command_string[200])
 {
     struct passwd s1;
     s1 = get_user_name();
@@ -135,10 +137,10 @@ void print_history(char *command[200], int len, char command_string[200])
     strcat(path, s1.pw_name);
     strcat(path, "/.history.temp");
     int fd = open(path, O_RDWR, 0644);
-    char buf[7000];
+    char buf[4000] = "\0";
     char *buffer[200];
     int i = 0, val = 0;
-    int v = read(fd, buf, 7000);
+    int v = read(fd, buf, 4000);
     if (v < 0)
     {
         bold_red();
@@ -146,7 +148,7 @@ void print_history(char *command[200], int len, char command_string[200])
         reset();
         printf("Failed to read .history.temp file\n");
         close(fd);
-        return;
+        return 0;
     }
     close(fd);
     char *token = strtok(buf, "`");
@@ -156,14 +158,14 @@ void print_history(char *command[200], int len, char command_string[200])
         i++;
         token = strtok(NULL, "`");
     }
-    
+
     if (len > 2)
     {
         bold_red();
         printf("Error : ");
         reset();
         printf("History have more arguments than needed\n");
-        return;
+        return 0;
     }
     if (len == 1)
     {
@@ -183,5 +185,5 @@ void print_history(char *command[200], int len, char command_string[200])
             printf("%s\n", buffer[j]);
         }
     }
-    return;
+    return 1;
 }

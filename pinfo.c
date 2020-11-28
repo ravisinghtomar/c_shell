@@ -1,7 +1,8 @@
 #include "header.h"
 #include "input.h"
 
-void execute_pinfo_func(char *command[200], int len, char command_string[200])
+
+int execute_pinfo_func(char *command[200], int len, char command_string[200])
 {
     char id[200] = "\0";
     char buf[300] = "\0";
@@ -25,7 +26,7 @@ void execute_pinfo_func(char *command[200], int len, char command_string[200])
         printf("Error : ");
         reset();
         printf("To many argument for pinfo\n");
-        return;
+        return 0;
     }
     strcpy(path1, "/proc/");
     strcat(path1, id);
@@ -39,7 +40,7 @@ void execute_pinfo_func(char *command[200], int len, char command_string[200])
         printf("Error : ");
         reset();
         printf("Process does not exists\n");
-        return;
+        return 0;
     }
     printf("pid -- %s \n", id);
     int fd = open(path1, O_RDONLY);
@@ -50,7 +51,7 @@ void execute_pinfo_func(char *command[200], int len, char command_string[200])
         printf("Error : ");
         reset();
         printf("Failed to read /proc/stat file\n");
-        return;
+        return 0;
     }
     close(fd);
     int i = 0;
@@ -99,5 +100,5 @@ void execute_pinfo_func(char *command[200], int len, char command_string[200])
     {
         printf("Executable Path -- %s\n", store2[1]);
     }
-    return;
+    return 1;
 }

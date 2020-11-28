@@ -19,25 +19,25 @@ Requirements :-
 
 Files :-
     1)Main.c
-
+```
 1)Shell Prompt <user@sys_name :*absolute address*>, shell open invoked with */home/user* as initial address.
 2)"~" or (/home/user) are treated as same any address with as substring */home/user* is replaced with *~*,
 3)color are not used for the prompt.
 4)signal functions are also present in this file.
-
+```
 ### For assignment # 2 :
 
 ## **Specification 1: Display requirement** :-
-
+```
 Files :-
     1)Main.c
 
 1)Shell Prompt <user@sys_name :*absolute address*>, shell open invoked with */home/user* as initial address.
 2)"~" or (/home/user) are treated as same any address with as substring */home/user* is replaced with *~*,
 3)color are not used for the prompt.
-
+```
 ## **Specification 2: Builtin commands** :-
-
+```
 Files :-
     1)cd.c          *cd function implemented here*
     2)pwd.c         *pwd function implemented here*
@@ -66,8 +66,9 @@ Files :-
 3)echo ->
         printf everything written in front of echo (except for ";" is used in the string)
         All \t or "<space>^n" are replaced by simple <space> like in bash Shell.
-
+```
 ## **Specification 3: ls command** :-
+```
 
 Files :-
     1)ls.c          *ls function implemented here* 
@@ -99,9 +100,9 @@ Files :-
         e) ls -l^n -a^n <directory>^n       e) *Same as ls -al^n <directory>^n
 
         Error : If directory not found or wrong path or used "~" in absolute path.
-
-
+```
 ## **Specification 4: System commands with and without arguments** :-
+```
 
 Files :-
     1)back_front_process.c    *Both front and back process function implemented here*
@@ -109,8 +110,9 @@ Files :-
 Implemted foreground and background process functionality present
 Incase : prompt does not appear press "Enter" in background process implementation.
          Commands like vi &/getdit & may open respective applications. 
-
+```
 ## **Specification 5: pinfo command (user defined)**
+```
 
 Files :-
     1)pinfo.c          *pinfo function implemented here*
@@ -124,8 +126,9 @@ Files :-
 
         Error : If process doesnot exist or If failed to open/read required 
                 files or wrong input is given.
-
+```
 ## **Specification 6: Finished Background Processes** :-
+```
 
 Files :-
     1)check_process.c       *Function implemented here*
@@ -133,12 +136,12 @@ Files :-
 1)check_process ->
         a) Printed whether process terminalted successfully(green color) or abnomally(red color).
         b) Used Flags for above.
-
+```
 
 ### For assingment # 3 :
 
 ## **Specification 1:  Input/Output Redirection** :-
-
+```
 Files :-
     1)redirect_handle.c      *contains implementation of ">","<",">>" commands*
 
@@ -147,9 +150,9 @@ Details :-
         ● The output file is created (with permissions ​0644​) if it does not already exist.
         ● In case the output file already exists, it is overwritten in case of ">"​ and appended to in case of "​>>"​.
         ● exit code true if command runs smoothly else false.
-
+```
 ## **Specification 2: Command Pipelines**
-
+```
 Files :-
     1)pipe_handle.c         *contains implementation of pipeline commands*
 
@@ -170,9 +173,9 @@ Details :-
         ● supports any number of pipes.
         ● Errors are handled as per both pipes and redirection.
         ● Exit codes as per last command executed.
-
+```
 ## **Specification 4: User-defined Commands**
-
+```
 Files :-
     1)jobs_handle.c                 *contains implementation of "jobs","kjobs","overkill","fg","bg" commands*
     2)environ_handle.c              *contains implementation of "setenv","unsetenv" commands*
@@ -223,9 +226,9 @@ Details :-
     quit :-
         ● Uses feof() function to know whether cntl + D is pressed or not.
         ● Treated as a sygnal not as a command.
-
+```
 ## **Specification 5: Signal Handling**
-
+```
     CTRL-Z :-
         ● pushes any currently running foreground job into the background.
         ● change its state from running to stopped.
@@ -233,18 +236,18 @@ Details :-
     CTRL-C :-
         ● interrupt any currently running foreground job.
         ● No effect on the terminal.
-
+```
 ## **Bonuses**
-
+```
 Files :-
     1)cd.c                          *contains implementation of cd- along with cd*     
     2)main.c                        *contains printing part of Bonus 2*
     3)bonus3_handle                 *contains implementation of Bonus 3*
     4)history.c                     *contains implementation of history*
     5)nightswatch.c                 *contains implementation of nightwatch command*
-
+```
 ### For assignment # 2 :
-
+```
     Bonus 1 :-
         a) implementation in cd-.
         b) By storing previous directory and chdir function.
@@ -255,9 +258,9 @@ Files :-
 
     Bonus 3 :-
         a) refer bonus3_handle.c file
-
+```
 ### for assignment # 3 :
-
+```
 1)history :-
         a) History stored in */home/user/.history.temp* .
         b) Only 20 commands stored and 10 are printed is "history" is typed.
@@ -283,3 +286,4 @@ Files :-
                 e) Exit on pressing q.
 
                 Error : If wrong input is given or unable read/open */proc/interrupt* file.
+```

@@ -20,8 +20,10 @@ Requirements :-
 Files :-
     1)Main.c
 ```
-1)Shell Prompt <user@sys_name :*absolute address*>, shell open invoked with */home/user* as initial address.
-2)"~" or (/home/user) are treated as same any address with as substring */home/user* is replaced with *~*,
+1)Shell Prompt <user@sys_name :*absolute address*>, shell open 
+  invoked with */home/user* as initial address.
+2)"~" or (/home/user) are treated as same any address with as 
+  substring */home/user* is replaced with *~*,
 3)color are not used for the prompt.
 4)signal functions are also present in this file.
 ```
@@ -32,8 +34,10 @@ Files :-
 Files :-
     1)Main.c
 
-1)Shell Prompt <user@sys_name :*absolute address*>, shell open invoked with */home/user* as initial address.
-2)"~" or (/home/user) are treated as same any address with as substring */home/user* is replaced with *~*,
+1)Shell Prompt <user@sys_name :*absolute address*>, shell 
+  open invoked with */home/user* as initial address.
+2)"~" or (/home/user) are treated as same any address with 
+  as substring */home/user* is replaced with *~*,
 3)color are not used for the prompt.
 ```
 ## **Specification 2: Builtin commands** :-
@@ -80,24 +84,24 @@ Files :-
         *"~/<directory>" will not work.*
         *"/home/user/Desktop" will work.* 
         -- Some Examples of working commmands -
-        a) ls <directory>^n                 a) *output:*            
-                                                    *Directory(1) : all visible files & directories*
-                                                    *Directory(2) : all visible files & directories*
-                                                    *.                                             *
-                                                    *.                                             *
-                                                    *Directory(n) : all visible files & directories*
-                                                    //*Directory(1 to n):* in yellow color
-        b) ls -l^n <directory>^n            b) *output:*            
-                                                    *Directory(1) : all visible files & directories with respective details*
-                                                    *Directory(2) : all visible files & directories with respective details*
-                                                    *.                                             *
-                                                    *.                                             *
-                                                    *Directory(n) : all visible files & directories with respective details*
-                                                    *Total : (int)total block sizes of 1024*
-                                                    //*Directory(1 to n):* in yellow color
-        c) ls -a^n <directory>^n            c) *Same as ls <directory>^n, but will also show hidden files & directories*
-        d) ls -al^n <directory>^n           d) *Same as ls -l^n <directory>^n, but will also show hidden files & directories*
-        e) ls -l^n -a^n <directory>^n       e) *Same as ls -al^n <directory>^n
+        a) ls <directory>^n            a) *output:*            
+                                        *Directory(1) : all visible files & directories*
+                                        *Directory(2) : all visible files & directories*
+                                        *.                                             *
+                                        *.                                             *
+                                        *Directory(n) : all visible files & directories*
+                                        //*Directory(1 to n):* in yellow color
+        b) ls -l^n <directory>^n       b) *output:*            
+                                        *Directory(1) : all visible files & directories with respective details*
+                                        *Directory(2) : all visible files & directories with respective details*
+                                        *.                                             *
+                                        *.                                             *
+                                        *Directory(n) : all visible files & directories with respective details*
+                                        *Total : (int)total block sizes of 1024*
+                                        //*Directory(1 to n):* in yellow color
+        c) ls -a^n <directory>^n       c) *Same as ls <directory>^n, but will also show hidden files & directories*
+        d) ls -al^n <directory>^n      d) *Same as ls -l^n <directory>^n, but will also show hidden files & directories*
+        e) ls -l^n -a^n <directory>^n  e) *Same as ls -al^n <directory>^n
 
         Error : If directory not found or wrong path or used "~" in absolute path.
 ```
@@ -115,14 +119,15 @@ Incase : prompt does not appear press "Enter" in background process implementati
 ```
 
 Files :-
-    1)pinfo.c          *pinfo function implemented here*
+    1)pinfo.c          //pinfo function implemented here
 
 1)pinfo ->
         a) If no id given then id of Shell is treated as id value.
         b) Getpid() is used to find pid of the Shell.
         c) Used */proc/<pid>/stat* for getting virtual memeory & State of Process.
         d) Used */proc/<pid>/exe* for getting the executable path.
-        e) If executable path not present then its description is printed from */proc/<pid>/stat* file.
+        e) If executable path not present then its description is 
+           printed from */proc/<pid>/stat* file.
 
         Error : If process doesnot exist or If failed to open/read required 
                 files or wrong input is given.
@@ -131,7 +136,7 @@ Files :-
 ```
 
 Files :-
-    1)check_process.c       *Function implemented here*
+    1)check_process.c       //Function implemented here
 
 1)check_process ->
         a) Printed whether process terminalted successfully(green color) or abnomally(red color).
@@ -143,18 +148,19 @@ Files :-
 ## **Specification 1:  Input/Output Redirection** :-
 ```
 Files :-
-    1)redirect_handle.c      *contains implementation of ">","<",">>" commands*
+    1)redirect_handle.c      //contains implementation of ">","<",">>" commands
 
 Details :-
         ● Error message is displayed if the input file does not exist.
         ● The output file is created (with permissions ​0644​) if it does not already exist.
-        ● In case the output file already exists, it is overwritten in case of ">"​ and appended to in case of "​>>"​.
+        ● In case the output file already exists, it is 
+          overwritten in case of ">"​ and appended to in case of "​>>"​.
         ● exit code true if command runs smoothly else false.
 ```
 ## **Specification 2: Command Pipelines**
 ```
 Files :-
-    1)pipe_handle.c         *contains implementation of pipeline commands*
+    1)pipe_handle.c         //contains implementation of pipeline commands
 
 Details :-
         ● One or more commands can be piped.
@@ -165,8 +171,8 @@ Details :-
 ## **Specification 3: I/O Redirection within Command Pipelines**
 
 Files :-
-    1)pipe_handle.c         *contains implementation of pipeline commands*
-    2)redirect_handle.c     *contains implementation of ">","<",">>" commands*
+    1)pipe_handle.c         //contains implementation of pipeline commands
+    2)redirect_handle.c     //contains implementation of ">","<",">>" commands
 
 Details :-
         ● One or more commands can be piped.
@@ -177,9 +183,9 @@ Details :-
 ## **Specification 4: User-defined Commands**
 ```
 Files :-
-    1)jobs_handle.c                 *contains implementation of "jobs","kjobs","overkill","fg","bg" commands*
-    2)environ_handle.c              *contains implementation of "setenv","unsetenv" commands*
-    3)main.c                        *contains implementation of quit*
+    1)jobs_handle.c     //contains implementation of "jobs","kjobs","overkill","fg","bg" commands
+    2)environ_handle.c  //contains implementation of "setenv","unsetenv" commands
+    3)main.c            //contains implementation of quit
 
 Details :-
 
@@ -240,11 +246,11 @@ Details :-
 ## **Bonuses**
 ```
 Files :-
-    1)cd.c                          *contains implementation of cd- along with cd*     
-    2)main.c                        *contains printing part of Bonus 2*
-    3)bonus3_handle                 *contains implementation of Bonus 3*
-    4)history.c                     *contains implementation of history*
-    5)nightswatch.c                 *contains implementation of nightwatch command*
+    1)cd.c                   //contains implementation of cd- along with cd   
+    2)main.c                 //contains printing part of Bonus 2
+    3)bonus3_handle          //contains implementation of Bonus 3
+    4)history.c              //contains implementation of history
+    5)nightswatch.c          //contains implementation of nightwatch command
 ```
 ### For assignment # 2 :
 ```

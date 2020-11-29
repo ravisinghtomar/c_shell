@@ -7,6 +7,7 @@
 #include <fcntl.h>
 #include <signal.h>
 #include <pwd.h>
+#include <grp.h>
 #include <time.h>
 #include <assert.h>
 #include <termios.h>

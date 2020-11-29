@@ -20,9 +20,25 @@ int check_tilda(char *str1, char *str2, int len)
     return 1;
 }
 
+void sig_stp_handle(int s)
+{
+    pid_t pid = getpid();
+    kill(pid, SIGSTOP);
+    return;
+}
+
+void sig_handle(int val)
+{
+    //lol kya kare iss function k :D
+}
+
 int main()
 {
-    child_process = 0;
+    signal(SIGINT, sig_handle);
+    signal(SIGTSTP, sig_handle);
+    //signal(SIGCHLD, check_process);
+    int sig_flag = 1;
+    child_process = 1;
     strcpy(prev_dir, "\0");
     struct utsname s;
     struct passwd s1;
@@ -41,6 +57,7 @@ int main()
     char str1[length];
     strcpy(str1, cw_d);
     int temp = chdir(cw_d);
+    int flag_out = 1;
     if (temp < 0)
     {
         printf("Error\n");
@@ -54,9 +71,9 @@ int main()
         printf("Failed to change directory to ~\n");
         return 0;
     }
-    while (1)
+    p_pid[0] = getpid();
+    while (flag_out)
     {
-        check_process();
         getcwd(cw_d, 4096);
         if (check_tilda(str1, cw_d, length))
         {
@@ -74,19 +91,34 @@ int main()
         {
             command[strcspn(command, "\n")] = 0;
             strcpy(com_str, command);
-	    if(strcmp(com_str," ")||strcmp(com_str,"  ")||strcmp(com_str,"   ")){
-            	create_history(command);
-	    }
-            if (!strcmp(command, "clear") || !strcmp(command, "c"))
-                printf("\e[1;1H\e[2J");
-            else if (!strcmp(command, "exit") || !strcmp(command, "quit"))
+            create_history(command);
+            if (!strcmp(command, "exit") || !strcmp(command, "quit"))
+            {
                 break;
+            }
             else
-                dist_command_1(command);
+            {
+                sig_flag = and_n_or(command);
+            }
+            if (sig_flag)
+            {
+                printf(":')");
+            }
+            else
+            {
+                printf(":'(");
+            }
         }
         else
         {
-            printf("Error : In reading the command, Please Enter the command again\n");
+            if (feof(stdin))
+            {
+                printf("\n");
+                flag_out = 0;
+                return 0;
+            }
+            else
+                printf("Error : In reading the command, Please Enter the command again\n");
         }
     }
     return 0;

@@ -13,7 +13,8 @@ void print_time(char *str)
     printf("%s ", strin);
     return;
 }
-void implement_ls(DIR *dr, int flag, char directory[200], char command_string[200])
+
+int implement_ls(DIR *dr, int flag, char directory[200], char command_string[200])
 {
     struct dirent *s;
     struct stat s1;
@@ -64,7 +65,7 @@ void implement_ls(DIR *dr, int flag, char directory[200], char command_string[20
                     printf("Error : ");
                     reset();
                     printf("Failed to read stat of the file %s\n", str);
-                    return;
+                    return 0;
                 }
                 total += s1.st_blocks / 2;
                 printf("\r%c", S_ISDIR(s1.st_mode) ? 'd' : '-');
@@ -80,8 +81,7 @@ void implement_ls(DIR *dr, int flag, char directory[200], char command_string[20
                 printf("%3ld ", s1.st_nlink);
                 passw = getpwuid(s1.st_uid);
                 printf("%9s ", passw->pw_name);
-                passw = getpwuid(s1.st_gid);
-                printf("%9s ", passw->pw_name);
+                printf("%9s ", getgrgid(s1.st_gid)->gr_name);
                 printf("%9ld ", s1.st_size);
                 print_time(ctime(&s1.st_mtime));
                 printf("%s\n", str1);
@@ -108,7 +108,7 @@ void implement_ls(DIR *dr, int flag, char directory[200], char command_string[20
                 printf("Error : ");
                 reset();
                 printf("Failed to read stat of the file %s\n", str);
-                return;
+                return 0;
             }
             total += s1.st_blocks / 2;
             printf("\r%c", S_ISDIR(s1.st_mode) ? 'd' : '-');
@@ -124,8 +124,7 @@ void implement_ls(DIR *dr, int flag, char directory[200], char command_string[20
             printf("%3ld ", s1.st_nlink);
             passw = getpwuid(s1.st_uid);
             printf("%9s ", passw->pw_name);
-            passw = getpwuid(s1.st_gid);
-            printf("%9s ", passw->pw_name);
+            printf("%9s ", getgrgid(s1.st_gid)->gr_name);
             printf("%9ld ", s1.st_size);
             print_time(ctime(&s1.st_mtime));
             printf("%s\n", s->d_name);
@@ -134,9 +133,12 @@ void implement_ls(DIR *dr, int flag, char directory[200], char command_string[20
         printf("Total : %d", total);
         printf("\n");
     }
+    return 1;
 }
-void execute_ls_func(char *command[200], int len, char command_string[200])
+
+int execute_ls_func(char *command[200], int len, char command_string[200])
 {
+    int sig_flag = 1;
     char dir_name[200][200];
     int dir_no = 0;
     int flag = 0;
@@ -200,6 +202,7 @@ void execute_ls_func(char *command[200], int len, char command_string[200])
             printf("Error : ");
             reset();
             printf("Directory \"%s\" not found\n", dir_name[i]);
+            return 0;
         }
         else
         {
@@ -209,7 +212,8 @@ void execute_ls_func(char *command[200], int len, char command_string[200])
                 printf("%s :\n", dir_name[i]);
                 reset();
             }
-            implement_ls(dr, flag, dir_name[i], command_string);
+            sig_flag &= implement_ls(dr, flag, dir_name[i], command_string);
         }
     }
+    return sig_flag;
 }

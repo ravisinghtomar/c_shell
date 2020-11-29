@@ -3,23 +3,37 @@
 
 void check_process()
 {
-    pid_t pid;
     int status;
+    pid_t pid;
     pid = waitpid(-1, &status, WNOHANG);
-    if (pid > 0)
-    {
-        child_process--;
-        if (WIFEXITED(status) && WEXITSTATUS(status) == EXIT_SUCCESS)
+    int flag1 = 0;
+    if (pid >= 0)
+        for (int i = 1; i <= child_process; i++)
         {
-            green();
-            printf("Process %d exited Successfully\n", pid);
-            reset();
+            if (pid == p_pid[i])
+            {
+                {
+                    if (i != child_process && p_pid[i] != 0)
+                    {
+                        if (WIFEXITED(status) && WEXITSTATUS(status) == EXIT_SUCCESS)
+                        {
+                            green();
+                            printf("\n[%d]-  %8s %7d exited Successfully\n", i, p_name[i], pid);
+                            reset();
+                        }
+                        else if (WIFSIGNALED(status))
+                        {
+                            red();
+                            printf("\n[%d]-  %8s %7d exited abnormally\n", i, p_name[i], pid);
+                            reset();
+                        }
+                    }
+                }
+                p_pid[i] = 0;
+                flag1++;
+            }
         }
-        else if (WIFSIGNALED(status))
-        {
-            red();
-            printf("Process %d exited abnormally\n", pid);
-            reset();
-        }
-    }
+    else
+        return;
+    return;
 }

@@ -120,7 +120,7 @@ int get_newborn()
     return 1;
 }
 
-void nightswatch(char *command[200], int len, char command_string[200])
+int nightswatch(char *command[200], int len, char command_string[200])
 {
     int n, flag = 3, f = 0;
     if (len < 4)
@@ -129,7 +129,7 @@ void nightswatch(char *command[200], int len, char command_string[200])
         printf("Error : ");
         reset();
         printf("Less arguments than needed\n");
-        return;
+        return 0;
     }
     else
     {
@@ -143,7 +143,7 @@ void nightswatch(char *command[200], int len, char command_string[200])
             printf("Error : ");
             reset();
             printf("Please give correct inputs\n");
-            return;
+            return 0;
         }
     }
     if (!strcmp(command[3], "newborn"))
@@ -156,7 +156,7 @@ void nightswatch(char *command[200], int len, char command_string[200])
         printf("Error : ");
         reset();
         printf("You have entered wrong command\n");
-        return;
+        return 0;
     }
     clock_t last = clock();
     while (1)
@@ -180,7 +180,7 @@ void nightswatch(char *command[200], int len, char command_string[200])
             if (getchar() == 'q')
             {
                 printf("\n");
-                return;
+                return 1;
             }
         }
     }
